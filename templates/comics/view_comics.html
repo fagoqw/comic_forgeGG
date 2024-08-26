@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Comics{% endblock %}
+
+{% block content %}
+  <h2>My Comics</h2>
+  <div class="row">
+    {% for comic in comics %}
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="{{ comic.cover_image.url }}" class="card-img-top" alt="{{ comic.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ comic.title }}</h5>
+            <a href="#" class="btn btn-primary">View Details</a>
+            <button type="submit">Delete</button>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>You have not created any comics yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
