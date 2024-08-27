@@ -10,6 +10,21 @@
         {% endif %}
         <p>{{ profile.bio }}</p>
 
+                <!-- Subscription functionality -->
+        {% if user.is_authenticated %}
+            {% if user.profile in profile.follows.all %}
+                <form method="post" action="{% url 'unfollow' profile.user.username %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Unfollow</button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'follow' profile.user.username %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Follow</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
         <h3>Comics Created</h3>
         <div class="row">
             {% for comic in comics %}
@@ -28,19 +43,6 @@
             {% endfor %}
         </div>
 
-        <!-- Subscription functionality -->
-        {% if user.is_authenticated %}
-            {% if user.profile in profile.follows.all %}
-                <form method="post" action="{% url 'unfollow' profile.user.username %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Unfollow</button>
-                </form>
-            {% else %}
-                <form method="post" action="{% url 'follow' profile.user.username %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Follow</button>
-                </form>
-            {% endif %}
-        {% endif %}
+
     </div>
 {% endblock %}
