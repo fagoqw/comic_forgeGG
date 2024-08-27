@@ -95,11 +95,7 @@ def search_comics(request):
     comics = Comic.objects.all()
 
     if query:
-        comics = comics.filter(
-            title__icontains=query
-        )
-
-        comics = comics.filter(author__username__icontains=query).distinct()
+        comics = comics.filter(title__icontains=query).distinct()
 
     return render(request, 'comics/search_results.html', {'comics': comics, 'query': query})
 
