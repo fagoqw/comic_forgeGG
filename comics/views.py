@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 
 
+
 @login_required
 def create_comic(request):
     if request.method == 'POST':

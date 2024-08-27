@@ -6,13 +6,7 @@ from .models import Comic, ComicImage, Comment
 class ComicForm(forms.ModelForm):
     class Meta:
         model = Comic
-        fields = ['title', 'cover_image', 'description', 'tags']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Create Comic', css_class='btn-primary'))
+        fields = ['title', 'description', 'cover_image']
 
 class ComicImageForm(forms.ModelForm):
     class Meta:
