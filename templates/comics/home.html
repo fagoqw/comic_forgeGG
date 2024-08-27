@@ -1,26 +1,22 @@
 {% extends 'base_generic.html' %}
 
-{% block title %}My Comics{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-    <h2>My Comics</h2>
+    <h2>Popular Comics</h2>
     <div class="row">
-        {% for comic in comics %}
+        {% for comic in popular_comics %}
             <div class="col-md-4">
                 <div class="card mb-4">
                     <img src="{{ comic.cover_image.url }}" class="card-img-top" alt="{{ comic.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ comic.title }}</h5>
                         <a href="{% url 'detail_comic' comic.id %}" class="btn btn-primary">View Details</a>
-                        <form action="{% url 'delete_comic' comic.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p>You have not created any comics yet.</p>
+            <p>No popular comics available.</p>
         {% endfor %}
     </div>
 {% endblock %}

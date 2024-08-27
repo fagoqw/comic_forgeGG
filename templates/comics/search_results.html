@@ -1,0 +1,36 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Search Results{% if query %} for "{{ query }}"{% endif %}</h2>
+        <form method="get" action="{% url 'search_comics' %}">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Search by title, tags, or author">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+
+        {% if comics %}
+            <div class="row">
+                {% for comic in comics %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="{{ comic.cover_image.url }}" class="card-img-top" alt="{{ comic.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ comic.title }}</h5>
+                                <p class="card-text">{{ comic.description }}</p>
+                                <a href="{% url 'detail_comic' comic.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No comics found.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No results found for "{{ query }}"</p>
+        {% endif %}
+    </div>
+{% endblock %}

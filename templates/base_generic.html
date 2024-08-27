@@ -16,11 +16,12 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Comic Project</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Comic Project</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="{% url 'create_comic' %}">Create Comic</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'view_comics' %}">My Comics</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'search_comics' %}">Search</a></li>
                 {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">Logout</a></li>
                 {% else %}
@@ -39,3 +40,4 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
+

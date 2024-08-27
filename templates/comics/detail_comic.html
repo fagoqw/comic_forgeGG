@@ -1,0 +1,60 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ comic.title }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>{{ comic.title }}</h2>
+                <img src="{{ comic.cover_image.url }}" class="img-fluid" alt="{{ comic.title }}">
+                <p>{{ comic.description }}</p>
+                <p><strong>Views:</strong> {{ comic.views }}</p>
+                <p><strong>Likes:</strong> {{ comic.likes }}</p>
+
+                <!-- Кнопка для лайков -->
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="like_comic" class="btn btn-primary">Like</button>
+                </form>
+
+                <h3>Images</h3>
+                <div class="row">
+                    {% for image in comic.images.all %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.description }}">
+                                <div class="card-body">
+                                    <p class="card-text">{{ image.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No images available for this comic.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h3>Comments</h3>
+                <div class="list-group mb-3">
+                    {% for comment in comments %}
+                        <div class="list-group-item">
+                            <p><strong>{{ comment.user.username }}:</strong> {{ comment.text }}</p>
+                            <p class="small text-muted">{{ comment.created_at }}</p>
+                        </div>
+                    {% empty %}
+                        <p>No comments yet.</p>
+                    {% endfor %}
+                </div>
+
+                <h3>Add a Comment</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
